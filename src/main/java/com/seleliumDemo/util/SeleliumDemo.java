@@ -1,43 +1,56 @@
 package com.seleliumDemo.util;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
-@SuppressWarnings("deprecation")
 public class SeleliumDemo {
-	static File pathToBinary;
-	static FirefoxBinary firefoxBinary;
-	static FirefoxProfile firefoxProfile;
-	static WebDriver driver;
-	static {
-		pathToBinary = new File("D:\\Mozilla Firefox\\firefox.exe");
+	private File pathToBinary;
+	private FirefoxBinary firefoxBinary;
+	private FirefoxProfile firefoxProfile;
+	private WebDriver driver;
+
+	@SuppressWarnings("deprecation")
+	public SeleliumDemo() {
 		System.setProperty("webdriver.gecko.driver", "D:\\install\\webdriver\\geckodriver.exe");
-		firefoxBinary = new FirefoxBinary(pathToBinary);
-		firefoxProfile = new FirefoxProfile();
-		driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
+		//安装路径
+		this.pathToBinary = new File("D:\\Mozilla Firefox\\firefox.exe");
+		this.firefoxBinary = new FirefoxBinary(pathToBinary);
+		this.firefoxProfile = new FirefoxProfile();
+		this.driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		new SeleliumDemo().getCookes();
+		String seller ="A2N01J8SZ7W4B3";
+		String seller1 ="A334XHS1C5Y12J";
+		String seller2 ="A39YHAI3NCE75F";
+		String seller3 ="A21371WWGM2SV9";
+		String url = "https://www.amazon.com/sp?_encoding=UTF8&asin=B00YD545CC&seller=";	
+		SeleliumDemo sele= new SeleliumDemo();
+		sele.getCookes(url+seller);
+		sele.getCookes(url+seller1);
+		sele.getCookes(url+seller2);
+		sele.getCookes(url+seller3);
 	}
 
-	public void getCookes() throws InterruptedException {
-		String url ="https://www.amazon.com/ss/help/contact/?_encoding=UTF8&marketplaceID=ATVPDKIKX0DER&ref_=v_sp_contact_seller&sellerID=A3SQJGY68K7HLU";
-		//driver.manage().addCookie(cookie);
+	public void getCookes(String url) throws InterruptedException {
 		driver.get(url);
-		driver.findElement(By.xpath("//input[@id='ap_email']")).sendKeys("1836318977@qq.com");
-		driver.findElement(By.xpath("//input[@id='ap_password']")).sendKeys("Songmeihong123");
-		driver.findElement(By.xpath("//input[@id='signInSubmit']")).click();
-	    driver.findElement(By.xpath("//input[@id='continue']")).click();
+		String askUrl = driver.findElement(By.xpath("//a[@id='seller-contact-button-announce']")).getAttribute("href");
+		driver.get(askUrl);
+		String currentUrl=driver.getCurrentUrl();
+		if(currentUrl.startsWith("https://www.amazon.com/ap/signin")) {
+			driver.findElement(By.xpath("//input[@id='ap_email']")).sendKeys("1135556405@qq.com");
+			driver.findElement(By.xpath("//input[@id='ap_password']")).sendKeys("Yirongshao1");
+			driver.findElement(By.xpath("//input[@id='signInSubmit']")).click();
+		}
+		driver.findElement(By.xpath("//span[contains(@id,'a-autoid-0')]")).click();
+		driver.findElement(By.xpath("//a[@id='preOrderSubject_4']")).click();
+		driver.findElement(By.xpath("//input[@name='writeButton']")).click();
+		driver.findElement(By.xpath("//textarea[@id='comment']")).sendKeys("hello word");
+		driver.findElement(By.xpath("//button[@id='a-autoid-1-announce']")).click();
 	}
 }
