@@ -1,9 +1,7 @@
 package com.seleliumDemo.util;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +44,6 @@ public class AmazonSpider implements PageProcessor {
 				printStream.println(html);
 				printStream.close();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -57,11 +54,10 @@ public class AmazonSpider implements PageProcessor {
 		for (Selectable inputSele : inputList) {
 			String name = inputSele.xpath("//input/@name").get();
 			String value = inputSele.xpath("//input/@value").get();
-			System.out.println(name+"====="+value);
 			BasicNameValuePair pair = new BasicNameValuePair(name, value);
 			pairList.add(pair);
 		}
-		pairList.add(new BasicNameValuePair("comment", "hello world"));		
+		pairList.add(new BasicNameValuePair("comment", "您好！"));		
 		NameValuePair[] values1 = pairList.toArray(new NameValuePair[] {});
 		Map<String, Object> params = new HashMap<String, Object>();
 		Request request = new Request();
@@ -69,10 +65,10 @@ public class AmazonSpider implements PageProcessor {
 		request.setUrl(actionUrl);
 		request.setExtras(params);
 		request.setMethod(HttpConstant.Method.POST);
-		page.addTargetRequest(request);
+		//page.addTargetRequest(request);
 	}
 	public static void main(String[] args) throws Exception {
-	   String url="https://www.amazon.com/ss/help/contact/writeMessage?writeButton=%E6%8F%90%E4%BA%A4&subject=5&orderID=&sellerID=A334XHS1C5Y12J&asin=&marketplaceID=ATVPDKIKX0DER&language=en_US";
+	   String url="https://www.amazon.com/ss/help/contact/writeMessage?writeButton=%E6%8F%90%E4%BA%A4&sellerID=A18A938UBK28OZ&language=en_US";
        Set<Cookie> setCookie = new SeleliumDemo().getCookes(url);
        for(Cookie cookie:setCookie) {
     	  site.addCookie(cookie.getName(), cookie.getValue());
