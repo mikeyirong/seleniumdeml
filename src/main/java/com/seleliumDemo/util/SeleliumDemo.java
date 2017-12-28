@@ -28,7 +28,7 @@ public class SeleliumDemo {
 	}
 
 	public static void main(String[] args){
-		String url = "https://www.amazon.com/ss/help/contact/writeMessage?writeButton=%E6%8F%90%E4%BA%A4&sellerID=A18A938UBK28OZ&language=en_US";
+		String url = "https://www.amazon.com/ss/help/contact/writeMessage?writeButton=%E6%8F%90%E4%BA%A4&subject=5&orderID=&sellerID=A2O24AVYU359XL&language=en_US";
 		SeleliumDemo sele = new SeleliumDemo();
 	    sele.getCookes(url);
 	}
@@ -44,17 +44,10 @@ public class SeleliumDemo {
 		}
 		if(driver.getCurrentUrl().startsWith("https://www.amazon.com/ap/cvf/request")) {
 			System.out.println("需要发送验证码！");
-			String clas= driver.findElement(By.xpath("//input[@id='continue']")).getAttribute("class");
 			driver.findElement(By.xpath("//input[@id='continue']")).click();
   		    String valicode = EmailUtil.getvalicode("1836318977@qq.com", "xcihobwkgroydigc");
 			driver.findElement(By.xpath("//input[@name='code']")).sendKeys(valicode);
-			System.out.println(clas);
 		}
-//		driver.findElement(By.xpath("//span[contains(@id,'a-autoid-0')]")).click();
-//		driver.findElement(By.xpath("//a[@id='preOrderSubject_4']")).click();
-//		driver.findElement(By.xpath("//input[@name='writeButton']")).click();
-//		driver.findElement(By.xpath("//textarea[@id='comment']")).sendKeys("hello word");
-//		driver.findElement(By.xpath("//button[@id='a-autoid-1-announce']")).click();
 		Set<Cookie> cookieSet= driver.manage().getCookies();
 		//driver.close();
 		return cookieSet;

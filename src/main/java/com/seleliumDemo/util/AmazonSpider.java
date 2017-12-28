@@ -57,7 +57,7 @@ public class AmazonSpider implements PageProcessor {
 			BasicNameValuePair pair = new BasicNameValuePair(name, value);
 			pairList.add(pair);
 		}
-		pairList.add(new BasicNameValuePair("comment", "您好！"));		
+		pairList.add(new BasicNameValuePair("comment", "nice "));		
 		NameValuePair[] values1 = pairList.toArray(new NameValuePair[] {});
 		Map<String, Object> params = new HashMap<String, Object>();
 		Request request = new Request();
@@ -68,8 +68,8 @@ public class AmazonSpider implements PageProcessor {
 		//page.addTargetRequest(request);
 	}
 	public static void main(String[] args) throws Exception {
-	   String url="https://www.amazon.com/ss/help/contact/writeMessage?writeButton=%E6%8F%90%E4%BA%A4&sellerID=A18A938UBK28OZ&language=en_US";
-       Set<Cookie> setCookie = new SeleliumDemo().getCookes(url);
+	   String url="https://www.amazon.com/ss/help/contact/writeMessage?writeButton=%E6%8F%90%E4%BA%A4&subject=5&orderID=&sellerID=AT1DRI0SUE1WL&asin=&language=en_US";
+	   Set<Cookie> setCookie = new SeleliumDemo().getCookes(url);
        for(Cookie cookie:setCookie) {
     	  site.addCookie(cookie.getName(), cookie.getValue());
        }
